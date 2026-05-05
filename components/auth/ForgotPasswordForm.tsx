@@ -69,17 +69,24 @@ export default function ForgotPasswordForm({ form }: ForgotPasswordFormProps) {
           )}
         </div>
 
-        <button
-          type="submit"
-          disabled={form.loading}
-          className={`w-full py-2.5 px-4 text-sm font-semibold text-white rounded-lg transition font-body ${
-            form.loading
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-[#142952] hover:bg-[#0f2146] active:bg-[#0b1b3a]'
-          }`}
-        >
-          {form.loading ? 'Sending...' : 'Send OTP'}
-        </button>
+       <button
+        type="submit"
+        disabled={form.loading}
+        className={`w-full py-2.5 px-4 text-sm font-semibold text-white rounded-lg transition font-body flex items-center justify-center ${
+          form.loading
+            ? 'bg-gray-400 cursor-not-allowed'
+            : 'bg-[#142952] hover:bg-[#0f2146] active:bg-[#0b1b3a]'
+        }`}
+      >
+       {form.loading ? (
+          <span className="flex items-center gap-2">
+            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+            Sending...
+          </span>
+        ) : (
+          "Send OTP"
+        )}
+      </button>
       </form>
     </AuthCard>
   )

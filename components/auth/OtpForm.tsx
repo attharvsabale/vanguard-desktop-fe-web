@@ -75,15 +75,26 @@ export default function OtpForm({ form }: OtpFormProps) {
         </button>
       </form>
 
-      <p className="text-xs text-center mt-4 text-gray-500 font-body">
+     <p className="text-xs text-center mt-4 text-gray-500 font-body">
         Didn&apos;t receive the code?{' '}
         <button
           type="button"
           onClick={form.handleResend}
-          disabled={form.loading}
-          className="text-blue-600 hover:text-blue-700 font-medium hover:underline disabled:text-gray-400 disabled:cursor-not-allowed disabled:no-underline"
+          disabled={form.resendLoading}
+          className={`font-medium inline-flex items-center gap-1 ${
+            form.resendLoading
+              ? 'text-gray-400 cursor-not-allowed'
+              : 'text-[#142952] hover:underline'
+          }`}
         >
-          Resend
+          {form.resendLoading ? (
+            <>
+              <span className="w-3 h-3 border-2 border-[#142952]/30 border-t-[#142952] rounded-full animate-spin"></span>
+              Resending...
+            </>
+          ) : (
+            'Resend'
+          )}
         </button>
       </p>
     </AuthCard>
