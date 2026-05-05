@@ -47,6 +47,8 @@ export type OtpFormState = {
   email: string
   error: string
   loading: boolean
+  resendLoading: boolean
+  success: string
   handleOtpChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   handleSubmit: (event: React.FormEvent) => void
   handleResend: () => Promise<void>

@@ -4,5 +4,9 @@ export const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api/v1`,
   headers: {
     "Content-Type": "application/json",
+    
   },
+  
 });
+console.log("BASE URL:", process.env.NEXT_PUBLIC_API_URL);
+console.log("FULL URL:", `${process.env.NEXT_PUBLIC_API_URL}/api/v1`);

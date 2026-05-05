@@ -11,7 +11,10 @@ export const useOtpForm = (): OtpFormState => {
 
   const [otp, setOtp] = useState('')
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState('')
+
+  const [loading, setLoading] = useState(false) // verify OTP
+  const [resendLoading, setResendLoading] = useState(false) // resend OTP
 
   const email = searchParams.get('email') ?? ''
 
@@ -19,11 +22,15 @@ export const useOtpForm = (): OtpFormState => {
     otp,
     email,
     error,
+    success,
     loading,
+    resendLoading,
 
+   
     handleOtpChange: (event) => {
       setOtp(event.target.value)
     },
+
 
     handleSubmit: (event) => {
       event.preventDefault()
@@ -39,11 +46,18 @@ export const useOtpForm = (): OtpFormState => {
       }
 
       setError('')
+      setSuccess('')
+      setLoading(true)
 
-      const params = new URLSearchParams({ email, otp })
-      router.push(`/reset-password?${params.toString()}`)
+      try {
+        const params = new URLSearchParams({ email, otp })
+        router.push(`/reset-password?${params.toString()}`)
+      } finally {
+        setLoading(false)
+      }
     },
 
+    // 🔹 Resend OTP
     handleResend: async () => {
       if (!email) {
         setError('Email missing. Please go back and try again.')
@@ -51,22 +65,29 @@ export const useOtpForm = (): OtpFormState => {
       }
 
       try {
-        setLoading(true)
+        setResendLoading(true)
         setError('')
+        setSuccess('')
 
-        await forgotPassword(email)
+        // 👇 THIS is the key change
+        await Promise.all([
+          forgotPassword(email),
+          new Promise((res) => setTimeout(res, 700)) // force spinner visibility
+        ])
 
-        setError('OTP resent successfully')
+        setSuccess('OTP resent successfully')
       } catch (err: unknown) {
         const message =
           (err as { response?: { data?: { error?: { message?: string } } } })
             ?.response?.data?.error?.message || 'Failed to resend OTP'
+
         setError(message)
       } finally {
-        setLoading(false)
+        setResendLoading(false)
       }
     },
 
+    // 🔹 Go back
     goToForgotPassword: () => {
       router.push('/forgot-password')
     },
