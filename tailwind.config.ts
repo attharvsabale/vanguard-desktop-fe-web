@@ -10,6 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
         display: ['Space Grotesk', 'system-ui', 'sans-serif'],
         body: ['DM Sans', 'system-ui', 'sans-serif'],
       },

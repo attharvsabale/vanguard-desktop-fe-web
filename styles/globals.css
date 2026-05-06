@@ -1,6 +1,5 @@
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -26,7 +25,11 @@
   body {
     margin: 0;
     min-height: 100vh;
-    font-family: 'DM Sans', system-ui, -apple-system, sans-serif !important;
+    font-family:
+      "Space Grotesk",
+      system-ui,
+      -apple-system,
+      sans-serif !important;
     background-color: rgb(var(--background));
     color: rgb(var(--foreground));
     -webkit-font-smoothing: antialiased;
@@ -36,11 +39,37 @@
 
 @layer utilities {
   .font-display {
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif !important;
+    font-family:
+      "Space Grotesk",
+      system-ui,
+      -apple-system,
+      sans-serif !important;
   }
 
   .font-body {
-    font-family: 'DM Sans', system-ui, -apple-system, sans-serif !important;
+    font-family:
+      "DM Sans",
+      system-ui,
+      -apple-system,
+      sans-serif !important;
   }
 }
 
+/* Subtle red glow used by disabled "Save" buttons to indicate
+   the form has invalid fields. Slow + low-amplitude so it nudges
+   the eye without being noisy. Honours reduced-motion. */
+@keyframes pulse-error {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(217, 45, 32, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(217, 45, 32, 0.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-\[pulse-error_2s_ease-in-out_infinite\] {
+    animation: none !important;
+  }
+}
